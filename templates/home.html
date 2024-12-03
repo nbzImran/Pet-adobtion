@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Adopt a Pet{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-betweeb align-items-center mb-4">
+<h1 class="mb-4">Available Pets</h1>
+</div>
+
+<div class="row">
+  {% for pet in pets %}
+  <a href="/{{ pet.id }}" class="stretched-link text-decoration-none">
+    <div class="card mb-4">
+        <!-- Existing pet card code -->
+   
+        <div class="col-md-4">
+          <div class="card mb-4">
+            {% if pet.photo_url %}
+              <img src="{{ pet.photo_url }}" class="card-img-top" alt="{{ pet.name }}" />
+            {% else %}
+              <img src="{{ url_for('static', filename='no-image.png') }}" class="card-img-top" alt="No Image" />
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ pet.name }}</h5>
+              <p class="card-text">
+                Species: {{ pet.species }}<br />
+                {% if pet.available %}
+                  <span class="badge badge-success">Available</span>
+                {% else %}
+                  <span class="badge badge-secondary">Not Available</span>
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </a>    
+  {% endfor %}
+  
+</div>
+
+<a href="/add" class="btn btn-primary">Add Pet</a>
+
+{% endblock %}
